@@ -1,0 +1,13 @@
+{
+  "name": "toy_robot_simulator",
+  "version": "0.0.0",
+  "description": "Sample movement controls for simulating a robot moving on a rectangular 2D surface.",
+  "main": "index.js",
+  "scripts": {
+    "demo": "npm start sample.txt",
+    "start": "node ./src/index.js $logfile",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC"
+}
