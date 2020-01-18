@@ -6,7 +6,7 @@ describe('validatePlacement', () => {
     expect(() => utils.validatePlacement(wrongType, {X: 1, Y: 1})).toThrow()
   })
   it('returns the original command if all checks are passed', () => {
-    const correctCommand = 'PLACE 0,0,EASTs'
+    const correctCommand = 'PLACE 0,0,EAST'
     expect(utils.validatePlacement(correctCommand, {X: 1, Y: 1})).toBe(correctCommand)
   })
 })
@@ -19,6 +19,15 @@ describe('validateCoordinates', () => {
 
   })
 })
+
+describe('validateDirection', () => {
+  it('only allows for the valid direction to be actioned on', () => {
+    expect(() => utils.validateDirection('something')).toThrow()
+    expect(() => utils.validateDirection('EASTS')).toThrow()
+    expect(() => utils.validateDirection('EAST')).not.toThrow()
+  })
+})
+
 describe('getPosition', () => {
   it('returns an array of position values extracted from the command string, sanitized and normalized', () => {
     expect(utils.getPosition('COMMAND 0,0,WEST')).toEqual(['COMMAND', 0, 0, 'WEST'])
