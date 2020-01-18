@@ -6,7 +6,7 @@ describe('validatePlacement', () => {
     expect(() => utils.validatePlacement(wrongType, {X: 1, Y: 1})).toThrow()
   })
   it('returns the original command if all checks are passed', () => {
-    const correctCommand = 'PLACE 0,0,EAST'
+    const correctCommand = 'PLACE 0,0,EASTs'
     expect(utils.validatePlacement(correctCommand, {X: 1, Y: 1})).toBe(correctCommand)
   })
 })

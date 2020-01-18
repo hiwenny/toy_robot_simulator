@@ -2,6 +2,32 @@ const validCommands = {
   PLACE: 'PLACE',
   MOVE: 'MOVE'
 }
+const validDirections = {
+  NORTH: 'NORTH',
+  EAST: 'EAST',
+  SOUTH: 'SOUTH',
+  WEST: 'WEST'
+}
+
+const directionalMapping = {
+  NORTH: {
+    X: 0,
+    Y: 1
+  },
+  EAST: {
+    X: 1,
+    Y: 0
+  },
+  SOUTH: {
+    X: 0,
+    Y: -1
+  },
+  WEST: {
+    X: -1,
+    Y: 0
+  }
+}
+
 /**
  * Validates the initial PLACE command.
  * @param {string} command A command string
@@ -12,6 +38,7 @@ function validatePlacement(command, maxBoundaries) {
   // Validations
   if (commandType.trim() !== validCommands.PLACE) throw new Error(`Commands has to start with ${validCommands.PLACE}`)  
   validateCoordinates(X, Y, maxBoundaries)
+  validateDirection(direction)
   return command
 }
 
@@ -23,8 +50,19 @@ function validatePlacement(command, maxBoundaries) {
  */
 function validateCoordinates(X, Y, maxBoundaries) {
   // Validating x and y
+  // TODO: validate it's a type Number
+  // TODO: undefined/falsey handling, edge cases
   if (X > maxBoundaries.X) throw new Error(`Maximum X coordinate exceeded, please keep it under ${maxBoundaries.X+1}`)
   if (Y > maxBoundaries.Y) throw new Error(`Maximum Y coordinate exceeded, please keep it under ${maxBoundaries.Y+1}`)
+}
+
+/**
+ * 
+ * @param {string} direction Direction of the robot
+ */
+// TODO: normalisation and further validation
+function validateDirection(direction) {
+  if (Object.keys(validDirections).indexOf(direction) === -1) throw new Error(`Invalid direction, please choose from ${[...Object.keys(validDirections)]}`)
 }
 
 /**
