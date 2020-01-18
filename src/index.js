@@ -7,7 +7,7 @@
 // 4. Print out current position when encountering REPORT
 
 const fs = require('fs')
-const validations = require('./validations.js/index.js')
+const validations = require('./validations.js')
 const movements = require('./movements')
 const constants = require('./constants')
 
