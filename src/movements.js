@@ -6,12 +6,12 @@
 // "PLACE X,Y,DIRECTION"
 // More work needed to sanitise and normalise odd syntaxes such as:
 // - "PLACEX,  Y, DIRECTION"
-function getPosition(command) {
+function getPlacement(command) {
   const [commandType, positionString] = command.split(' ')
   const [X, Y, direction] = positionString.split(',')
   return [commandType, Number(X), Number(Y), direction]
 }
 
 module.exports = {
-  getPosition
+  getPlacement
 }

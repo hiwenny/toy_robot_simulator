@@ -6,7 +6,7 @@ const movements = require('./movements')
  */
 function validatePlacement(command, maxBoundaries) {
   // Split the command into parts.
-  const [commandType, X, Y, direction] = movements.getPosition(command)
+  const [commandType, X, Y, direction] = movements.getPlacement(command)
   // Validations
   if (commandType.trim() !== constants.validCommands.PLACE) throw new Error(`Commands has to start with ${constants.validCommands.PLACE}`)  
   validateCoordinates(X, Y, maxBoundaries)
