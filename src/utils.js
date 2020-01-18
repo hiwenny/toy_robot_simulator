@@ -8,10 +8,13 @@ function validatePlacement(command, maxBoundaries) {
   // Split the command into parts.
   const { commandType, X, Y, direction } = movements.getPlacement(command, true)
   // Validations
-  if (commandType.trim() !== constants.validCommands.PLACE) throw new Error(`Commands has to start with ${constants.validCommands.PLACE}`)  
+  if (commandType.trim() !== constants.validCommands.PLACE) {
+    console.warn(`Invalid ${constants.validCommands.PLACE} command`)
+    return false
+  }
   validateCoordinates(X, Y, maxBoundaries)
   validateDirection(direction)
-  return command
+  return true
 }
 
 /**
@@ -41,7 +44,11 @@ function validateCoordinates(X, Y, maxBoundaries) {
  */
 // TODO: normalisation and further validation
 function validateDirection(direction) {
-  if (Object.keys(constants.validDirections).indexOf(direction) === -1) throw new Error(`Invalid direction, please choose from ${[...Object.keys(constants.validDirections)]}`)
+  if (Object.keys(constants.validDirections).indexOf(direction) === -1) {
+    console.warn(`Invalid direction, please choose from ${[...Object.keys(constants.validDirections)]}`)
+    return false
+  }
+  return true
 }
 
 
