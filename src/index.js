@@ -7,6 +7,7 @@
 
 const fs = require('fs')
 const utils = require('./utils.js')
+const constants = require('./constants')
 
 /** Constants */
 // For now the boundaries are hardcoded, but ideally this can be set as required.
@@ -17,4 +18,9 @@ const boundaries = {X: 4, Y: 4}
 const commands = fs.readFileSync(process.argv[2], 'utf8').split('\n').filter(log => !!log)
 
 // First command has to be a valid PLACE command so fail fast
-validatePlacement(commands[0], boundaries)
+utils.validatePlacement(commands[0], boundaries)
+let robot = {
+  X: 0,
+  Y: 0,
+  direction: constants.validDirections.NORTH
+}

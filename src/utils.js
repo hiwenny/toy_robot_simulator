@@ -1,14 +1,14 @@
-const {validCommands, validDirections} = require('./contants')
-
+const constants = require('./constants')
+const movements = require('./movements')
 /**
  * Validates the initial PLACE command.
  * @param {string} command A command string
  */
 function validatePlacement(command, maxBoundaries) {
   // Split the command into parts.
-  const [commandType, X, Y, direction] = getPosition(command)
+  const [commandType, X, Y, direction] = movements.getPosition(command)
   // Validations
-  if (commandType.trim() !== validCommands.PLACE) throw new Error(`Commands has to start with ${validCommands.PLACE}`)  
+  if (commandType.trim() !== constants.validCommands.PLACE) throw new Error(`Commands has to start with ${constants.validCommands.PLACE}`)  
   validateCoordinates(X, Y, maxBoundaries)
   validateDirection(direction)
   return command
@@ -34,26 +34,13 @@ function validateCoordinates(X, Y, maxBoundaries) {
  */
 // TODO: normalisation and further validation
 function validateDirection(direction) {
-  if (Object.keys(validDirections).indexOf(direction) === -1) throw new Error(`Invalid direction, please choose from ${[...Object.keys(validDirections)]}`)
+  if (Object.keys(constants.validDirections).indexOf(direction) === -1) throw new Error(`Invalid direction, please choose from ${[...Object.keys(constants.validDirections)]}`)
 }
 
-/**
- * Function to split the line into useable position descriptors.
- * @param {string} command Command string to be split into 4 parts. Returns commandType, X, Y, and direction.
- */
-// TODO: current implementation is simple as can be. This handles ideal condition:
-// "PLACE X,Y,DIRECTION"
-// More work needed to sanitise and normalise odd syntaxes such as:
-// - "PLACEX,  Y, DIRECTION"
-function getPosition(command) {
-  const [commandType, positionString] = command.split(' ')
-  const [X, Y, direction] = positionString.split(',')
-  return [commandType, Number(X), Number(Y), direction]
-}
+
 
 module.exports = {
   validatePlacement,
   validateCoordinates,
-  validateDirection,
-  getPosition
+  validateDirection
 }
