@@ -7,8 +7,9 @@
 // 4. Print out current position when encountering REPORT
 
 const fs = require('fs')
-const utils = require('./utils.js')
+const validations = require('./validations.js/index.js')
 const movements = require('./movements')
+const constants = require('./constants')
 
 /** Runtime-specific constants */
 // For now the boundaries are hardcoded, but ideally this can be set as required.
@@ -19,12 +20,22 @@ const boundaries = {X: 4, Y: 4}
 // Loading file containing commands, removed empty lines.
 const commands = fs.readFileSync(process.argv[2], 'utf8').split('\n').filter(log => !!log)
 
-// Start with PLACE
-utils.validatePlacement(commands[0], boundaries) // if this fails, the whole program stops
-let robotPosition = movements.getPlacement(commands[0])
+// Start with the first instance of PLACE command and skip all that came before
+// It should skip the invalid PLACE command and continue down the line
+const PLACEindex = commands.findIndex( command =>
+  command.includes(constants.validCommands.PLACE) &&
+  validations.validatePlacement(command, boundaries)
+);
+if (PLACEindex === -1) throw new Error(`Instructions must start with a valid ${constants.validCommands.PLACE} command`)
 
-// for(let i=1; i< commands.length; i++) {
-//   console.log(commands[i])
-//   movements.setPosition(robotPosition)
-// }
-// console.log(robotPosition)
+// First placement
+let robotPosition = movements.getPlacement(commands[PLACEindex])
+
+// Subsequent movements and placements
+for(let i=PLACEindex+1; i< commands.length; i++) {
+  const newPosition = movements.setPosition(robotPosition, commands[i])
+  // Safeguard if invalid new placement - only update if passing validations.
+  if (validations.validateCoordinates(newPosition.X, newPosition.Y, boundaries) && validations.validateDirection(newPosition.direction)) {
+    robotPosition = newPosition
+  }
+}
