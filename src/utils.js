@@ -24,8 +24,15 @@ function validateCoordinates(X, Y, maxBoundaries) {
   // Validating x and y
   // TODO: validate it's a type Number
   // TODO: undefined/falsey handling, edge cases
-  if (X > maxBoundaries.X) throw new Error(`Maximum X coordinate exceeded, please keep it under ${maxBoundaries.X+1}`)
-  if (Y > maxBoundaries.Y) throw new Error(`Maximum Y coordinate exceeded, please keep it under ${maxBoundaries.Y+1}`)
+  if (X > maxBoundaries.X) {
+    console.warn(`Maximum X coordinate exceeded, please keep it under ${maxBoundaries.X+1}`)
+    return false
+  }
+  if (Y > maxBoundaries.Y) {
+    console.warn(`Maximum Y coordinate exceeded, please keep it under ${maxBoundaries.Y+1}`)
+    return false
+  }
+  return true
 }
 
 /**

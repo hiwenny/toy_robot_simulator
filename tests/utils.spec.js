@@ -13,9 +13,9 @@ describe('validatePlacement', () => {
 
 describe('validateCoordinates', () => {
   it('validates the projected coordinates and rejects it if outside the max boundaries.', () => {
-    expect(() => utils.validateCoordinates(2, 3, {X: 1, Y: 3})).toThrow()
-    expect(() => utils.validateCoordinates(2, 3, {X: 2, Y: 2})).toThrow()
-    expect(() => utils.validateCoordinates(1, 3, {X: 1, Y: 3})).not.toThrow()
+    expect(utils.validateCoordinates(2, 3, {X: 1, Y: 3})).toBe(false)
+    expect(utils.validateCoordinates(2, 3, {X: 2, Y: 2})).toBe(false)
+    expect(utils.validateCoordinates(1, 3, {X: 1, Y: 3})).toBe(true)
 
   })
 })
