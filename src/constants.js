@@ -13,27 +13,36 @@ const validDirections = {
   WEST: 'WEST'
 }
 
-const directionalMapping = {
-  NORTH: {
+const movementsMapping = {
+  [validDirections.NORTH]: {
     X: 0,
     Y: 1
   },
-  EAST: {
+  [validDirections.EAST]: {
     X: 1,
     Y: 0
   },
-  SOUTH: {
+  [validDirections.SOUTH]: {
     X: 0,
     Y: -1
   },
-  WEST: {
+  [validDirections.WEST]: {
     X: -1,
     Y: 0
+  }
+}
+
+const rotationalMapping = {
+  sequence: ['NORTH', 'EAST', 'SOUTH', 'WEST'],
+  modifier: {
+    [validCommands.LEFT]: -1,
+    [validCommands.RIGHT]: 1
   }
 }
 
 module.exports = {
   validCommands,
   validDirections,
-  directionalMapping
+  movementsMapping,
+  rotationalMapping
 }
