@@ -4,7 +4,7 @@
   "description": "Sample movement controls for simulating a robot moving on a rectangular 2D surface.",
   "main": "index.js",
   "scripts": {
-    "demo": "npm start sample.txt",
+    "demo": "npm start './demo/sample.txt'",
     "start": "node ./src/index.js $logfile",
     "test": "jest"
   },
