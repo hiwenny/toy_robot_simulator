@@ -1,6 +1,9 @@
 const validCommands = {
   PLACE: 'PLACE',
-  MOVE: 'MOVE'
+  MOVE: 'MOVE',
+  LEFT: 'LEFT',
+  RIGHT: 'RIGHT',
+  REPORT: 'REPORT'
 }
 
 const validDirections = {
