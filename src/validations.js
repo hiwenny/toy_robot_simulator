@@ -8,13 +8,14 @@ function validatePlacement(command, maxBoundaries) {
   // Split the command into parts.
   const { commandType, X, Y, direction } = movements.getPlacement(command, true)
   // Validations
-  if (commandType.trim() !== constants.validCommands.PLACE) {
+  if (commandType.trim() !== constants.validCommands.PLACE ||
+    !validateCoordinates(X, Y, maxBoundaries) ||
+    !validateDirection(direction)
+  ) {
     console.warn(`Invalid ${constants.validCommands.PLACE} command`)
     return false
   }
-  validateCoordinates(X, Y, maxBoundaries)
-  validateDirection(direction)
-  return true
+    return true
 }
 
 /**
@@ -50,8 +51,6 @@ function validateDirection(direction) {
   }
   return true
 }
-
-
 
 module.exports = {
   validatePlacement,
